@@ -1,0 +1,63 @@
+{
+    "configurations": [
+        {
+            "name": "!!! WARNING !!! AUTO-GENERATED FILE, PLEASE DO NOT MODIFY IT AND USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags"
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "/home/minus/Documents/PlatformIO/Projects/AccLedStripMotor/include",
+                "/home/minus/Documents/PlatformIO/Projects/AccLedStripMotor/src",
+                "/home/minus/.platformio/lib/I2Cdevlib-MPU6050_ID107",
+                "/home/minus/.platformio/lib/I2Cdevlib-Core_ID11",
+                "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/Wire/src",
+                "/home/minus/.platformio/packages/framework-arduino-avr-minicore/cores/MiniCore",
+                "/home/minus/.platformio/packages/framework-arduino-avr-minicore/variants/standard",
+                "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/AVR_examples/src",
+                "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/EEPROM/src",
+                "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/Optiboot_flasher/src",
+                "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/SPI/src",
+                "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/SPI1/src",
+                "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/SoftwareSerial/src",
+                "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/Wire1/src",
+                "/home/minus/.platformio/packages/tool-unity",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/home/minus/Documents/PlatformIO/Projects/AccLedStripMotor/include",
+                    "/home/minus/Documents/PlatformIO/Projects/AccLedStripMotor/src",
+                    "/home/minus/.platformio/lib/I2Cdevlib-MPU6050_ID107",
+                    "/home/minus/.platformio/lib/I2Cdevlib-Core_ID11",
+                    "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/Wire/src",
+                    "/home/minus/.platformio/packages/framework-arduino-avr-minicore/cores/MiniCore",
+                    "/home/minus/.platformio/packages/framework-arduino-avr-minicore/variants/standard",
+                    "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/AVR_examples/src",
+                    "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/EEPROM/src",
+                    "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/Optiboot_flasher/src",
+                    "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/SPI/src",
+                    "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/SPI1/src",
+                    "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/SoftwareSerial/src",
+                    "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/Wire1/src",
+                    "/home/minus/.platformio/packages/tool-unity",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=40100",
+                "ARDUINO_AVR_ATmega328P",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10808",
+                "__AVR_ATmega328P__",
+                ""
+            ],
+            "intelliSenseMode": "clang-x64",
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "\"/home/minus/.platformio/packages/toolchain-atmelavr/bin/avr-gcc\" -mmcu=atmega328p"
+        }
+    ],
+    "version": 4
+}
