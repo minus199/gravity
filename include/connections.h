@@ -1,0 +1,7 @@
+struct ledStripPins{
+
+};
+
+struct accPins{
+
+};
