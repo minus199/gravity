@@ -1,8 +1,16 @@
 #include <Arduino.h>
+int latchPin = 9;  // Pin connected to ST_CP of 74HC595（Pin12）
+int clockPin = 10; // Pin connected to SH_CP of 74HC595（Pin11）
+int dataPin = 8;   // Pin connected to DS of 74HC595（Pin14）
+
 
 int outPorts[] = {6, 5, 4, 3};
 
 void setupMotor() {
+
+	pinMode(latchPin, OUTPUT);
+	pinMode(clockPin, OUTPUT);
+	pinMode(dataPin, OUTPUT);
   // set pins to output
   for (int i = 0; i < 4; i++) {
     pinMode(outPorts[i], OUTPUT);
@@ -31,6 +39,14 @@ void moveSteps(bool dir, int steps, byte ms) {
     delay(ms);        // Control the speed
   }
 }
+
+void move(byte x)
+{
+	digitalWrite(latchPin, LOW);
+	shiftOut(dataPin, clockPin, LSBFIRST, x);
+	digitalWrite(latchPin, HIGH);
+}
+
 
 void loopMotor()
 {
