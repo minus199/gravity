@@ -8,6 +8,7 @@
             "includePath": [
                 "/home/minus/Documents/PlatformIO/Projects/AccLedStripMotor/include",
                 "/home/minus/Documents/PlatformIO/Projects/AccLedStripMotor/src",
+                "/home/minus/Documents/PlatformIO/Projects/AccLedStripMotor/lib/Servo/src",
                 "/home/minus/.platformio/lib/I2Cdevlib-MPU6050_ID107",
                 "/home/minus/.platformio/lib/I2Cdevlib-Core_ID11",
                 "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/Wire/src",
@@ -28,6 +29,7 @@
                 "path": [
                     "/home/minus/Documents/PlatformIO/Projects/AccLedStripMotor/include",
                     "/home/minus/Documents/PlatformIO/Projects/AccLedStripMotor/src",
+                    "/home/minus/Documents/PlatformIO/Projects/AccLedStripMotor/lib/Servo/src",
                     "/home/minus/.platformio/lib/I2Cdevlib-MPU6050_ID107",
                     "/home/minus/.platformio/lib/I2Cdevlib-Core_ID11",
                     "/home/minus/.platformio/packages/framework-arduino-avr-minicore/libraries/Wire/src",

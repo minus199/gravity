@@ -1,6 +1,9 @@
 #include <Arduino.h>
 #include "MPU6050.h"
 #include "sensorModels.h"
+#include "accelometer.h"
+#include "motor.h"
+#include "dualMotors.h"
 
 stats acc, gravity;
 MPU6050 mpu;
@@ -21,10 +24,12 @@ void debugI2C_setup()
 	Serial.print("\n");
 }
 
-void setupI2C()
+void setupMPU()
 {
 	Serial.print("Initializing I2C devices...");
 	Wire.begin();
+	Serial.print("2Initializing I2C devices...");
+
 	mpu.initialize();
 	Serial.print("...Testing device connections...");
 	if (mpu.testConnection())
@@ -34,50 +39,90 @@ void setupI2C()
 	debugI2C_setup();
 }
 
-void loop22()
+long maxServoDeg = 180;
+long currentServoDeg = 90;
+
+void loopMPU(Motor *motor, StepMotor *stepMotor, Servo *xservo)
 {
 	mpu.getMotion6(&acc.x, &acc.y, &acc.z, &gravity.x, &gravity.y, &gravity.z);
 
-	acc.sumX += acc.x;
-	acc.sampleCountX += 1;
-	acc.avgX = acc.sumX / acc.sampleCountX;
-	acc.deltaX = acc.x - acc.prevX;
+	acc.xsum += acc.x;
+	acc.xSampleCount += 1;
+	acc.xavg = acc.xsum / acc.xSampleCount;
+	acc.xdelta = acc.x - acc.xprev;
+	acc.xmax = acc.xmax > abs(acc.x) ? acc.xmax : abs(acc.x);
+	
+	gravity.xsum += gravity.x;
+	gravity.xSampleCount += 1;
+	// gravity.avgX = gravity.sumX / gravity.sampleCountX;
+	gravity.xdelta = gravity.x - gravity.xprev;
 
-	gravity.sumX += gravity.x;
-	gravity.sampleCountX += 1;
-	gravity.avgX = gravity.sumX / gravity.sampleCountX;
-	gravity.deltaX = gravity.x - gravity.prevX;
+	float xAccRatio = ((float)acc.x / (float)acc.xmax);
+	long newxServoDeg = map(acc.x, acc.xmax * -1, acc.xmax, 0, maxServoDeg);
+	
+	Serial.write('\r');
+	Serial.printf("%7s", acc.x > 0 ? " ===> " : " <=== ");
+	Serial.print("\tacc -> x: [");
+	Serial.printf("%6d", acc.x);
+	Serial.print("]\t x%: [");
+	Serial.printf("%6d", xAccRatio);
+	Serial.print("]\t servo next deg: [");
+	Serial.printf("%6d", newxServoDeg);
+	Serial.print("]\t\ty: [");
+	Serial.printf("%6d", acc.y);
+	Serial.print("]\t\tz: [");
+	Serial.printf("%6d", acc.z);
+	Serial.print("] \t\t");
+
+	// Serial.print(xservo->readMicroseconds)
+	Serial.write('\r');
+
+	gravity.xprevDelta = gravity.xdelta;
+	int minLeft = 89;
+	int maxLeft = 0;
+	
+	int resetPos = 90;
+	
+	int minRight = 91;
+	int maxRight = 180;
+
+	//reset to full_left -> 0 to 90
+	//reset to full_right -> 90 to 180
+	//reset to full_left to full right -> 0 to 90
+	//reset to full_left -> 0 to 90
+	//reset to full_left -> 0 to 90
+
+	if (acc.xmax > 1000)
+	{
+		
+		xservo->write(newxServoDeg);
+		delay(15);
+		
+	}
+	// motor->adjustSpeed(newSpeed);
+	/*
+	for (int i = 0; i < 100; i++)
+	{
+		stepMotor->step(acc.x < 0);
+		delay(3);
+	}
+	*/
+
+	// motor->changeDirection(acc.x > 0);
 	// moveSteps(acc.y > 0, 50, 2);
-
+	/*
 	if (acc.x > 0)
 	{
-		if (abs(acc.x) < 500)
-		{
-			Serial.printf("%7s", "---");
-		}
-		else
-		{
-			Serial.printf("%7s", acc.x > 0 ? " ===> " : " <=== ");
-		}
+
+		motor->adjustSpeed(20);
+		motor->changeDirection(true);
 	}
 	else
 	{
-		if (abs(acc.y) < 400)
-		{
-			Serial.printf("%7s", "---");
-		}
-		else
-		{
-			Serial.printf("%7s", acc.y > 0 ? " ^^^^ " : " VVVV ");
-		}
+		motor->adjustSpeed(20);
+		motor->changeDirection(false);
 	}
-	Serial.print("\tacc -> x: [");
-	Serial.printf("%6d", acc.x);
-	Serial.print("]\ty: [");
-	Serial.printf("%6d", acc.y);
-	Serial.print("] \t\t");
-	gravity.prevDeltaX = gravity.deltaX;
-
+*/
 	// Serial.print("]\tdelta x: [");
 	// Serial.printf("%6d", gravity.deltaX);
 	// Serial.print("]\tp d avg x: [");
@@ -115,8 +160,6 @@ void loop22()
 	// }
 
 	// delay(100);
-	Serial.write('\r');
-
 	/*Serial.print("ax:");
    Serial.print(ax); 
    Serial.print(" | gx:");

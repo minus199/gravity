@@ -2,12 +2,12 @@
 #include <motor.h>
 
 
-void directionControl(Motor motor)
+void directionControl(Motor motor, bool right)
 {
     motor.on();
     motor.adjustSpeed(50);
     delay(2000);
-    motor.changeDirection(false);
+    motor.changeDirection(right);
     delay(2000);
     motor.off();
 }
