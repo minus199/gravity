@@ -1,25 +1,28 @@
 #include <Arduino.h>
-#include "Wire.h"
-#include "I2Cdev.h"
-#include "MPU6050.h"
-#include "dualMotors.h"
-#include <motor.h>
+#include "accelometer.h"
 
-Motor motorA(9, 8, 7);
-Motor motorB(3, 5, 4);
+Motor motorA(6, 5, 4), motorB(10, 12, 11);
+MotorControlPin x[4] = {11, 10, 9, 8};
+StepMotor stepMotor(x);
+ServoMotor xservo(0, 8);
+ServoMotor yservo(0, 9);
+
+//map(value, fromLow, fromHigh, toLow, toHigh)
 
 void setup()
 {
 	Serial.begin(9600);
-	// setupI2C();
+	setupMPU();
 	motorA.off();
-	// motorB.off();
+	motorB.off();
+	// stepMotor.mount();
+	xservo.mount();
 }
 
 void loop()
 {
-	directionControl(motorA);
-	delay(1000);
-	speedControl(motorA);
-	delay(1000);
+	// motorA.on();
+	// directionControl(motorA);
+	// speedControl(motorA);
+	loopMPU(&motorA, &stepMotor, &xservo);
 }

@@ -1,9 +1,11 @@
 #ifndef MOTOR_H
 #define MOTOR_H
 
-typedef int MotorControlPin; // on, off, speed
-typedef int MotorDirectionPin;
 #include <Arduino.h>
+
+
+typedef uint8_t MotorControlPin; // on, off, speed
+typedef uint8_t MotorDirectionPin;
 
 class Motor
 {

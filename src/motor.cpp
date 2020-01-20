@@ -5,6 +5,10 @@ Motor::Motor(MotorControlPin cPin, MotorDirectionPin dPin1, MotorDirectionPin dP
     pinMode(cPin, OUTPUT);
     pinMode(dPin1, OUTPUT);
     pinMode(dPin2, OUTPUT);
+    this->cPin = cPin;
+    this->dPin1 = dPin1;
+    this->dPin2 = dPin2;
+    this->off();
 }
 
 Motor::~Motor()
@@ -28,7 +32,8 @@ void Motor::adjustSpeed(double precent)
         Serial.print("Value must be a precentage(any number between 0 and 100, inclusive).");
     }
 
-    analogWrite(this->cPin, (int)((255*precent)/100));
+    int newSpeedAbs = (int)((255*precent)/100);
+    analogWrite(this->cPin, newSpeedAbs);
 }
 
 void Motor::changeDirection(bool right)

@@ -3,7 +3,7 @@
 
 #include <motor.h>
 
-void directionControl(Motor motor);
+void directionControl(Motor motor, bool right);
 void speedControl(Motor motor);
 
 
